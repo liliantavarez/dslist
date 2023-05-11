@@ -28,6 +28,11 @@ public class GameService {
     public GameDTO findById(Long id) {
         return gameRepository.findById(id).map(game -> modelMapper.map(game, GameDTO.class)).get();
     }
+
+    @Transactional(readOnly = true)
+    public List<GameMinDTO> findByList(Long listId) {
+        return gameRepository.searchByList(listId).stream().map(game -> modelMapper.map(game, GameMinDTO.class)).collect(Collectors.toList());
+    }
 }
 
 
